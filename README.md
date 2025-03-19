@@ -25,3 +25,14 @@ Output:
 ```go
 SELECT `some_table`.`crc` `some_table`.`create` `some_table`.`desc` FROM `some_table` LIMIT 1;
 ```
+
+Also, you can also initialize the structure fields based on the database response.
+```go
+data := DBAuth{}
+initMembers := 0
+for res.Next() {
+	if scan := res.Scan(); scan == nil {
+		initMembers = FillByDBResult(res, &data)
+	}
+}
+```
