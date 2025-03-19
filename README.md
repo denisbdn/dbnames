@@ -28,7 +28,7 @@ SELECT `some_table`.`crc` `some_table`.`create` `some_table`.`desc` FROM `some_t
 
 Also, you can also initialize the structure fields based on the database response.
 ```go
-data := DBAuth{}
+data := DBData{}
 initMembers := 0
 for res.Next() {
 	if scan := res.Scan(); scan == nil {
