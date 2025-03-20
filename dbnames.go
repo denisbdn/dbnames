@@ -188,6 +188,16 @@ func (t MYSQLDATETIME) MarshalJSON() ([]byte, error) {
 	return json.Marshal(t.Unix())
 }
 
+func (t *MYSQLDATETIME) UnmarshalJSON(data []byte) error {
+	if i, e := strconv.ParseInt(string(data), 10, 64); e != nil {
+		return e
+	} else {
+		tmp := time.Unix(i, 0)
+		*t = MYSQLDATETIME(tmp)
+		return nil
+	}
+}
+
 func (t *MYSQLDATETIME) IsNULL() bool {
 	zero := MYSQLDATETIME{}
 	if zero == *t {

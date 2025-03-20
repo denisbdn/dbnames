@@ -35,6 +35,20 @@ func TestMYSQLDATETIMEJson(t *testing.T) {
 	}
 	str2 := string(b2)
 	t.Log(str2)
+
+	js, errM := json.Marshal(custom)
+	if errM != nil {
+		t.Error(errM)
+	}
+	check := MYSQLDATETIME{}
+	if errU := json.Unmarshal(js, &check); errU != nil {
+		t.Error(errU)
+	} else if custom.ToString() != check.ToString() {
+		t.Error("bad json serialization")
+	} else {
+		t.Log(check.ToString())
+		t.Log(custom.ToString())
+	}
 }
 
 func TestMYSQLDATETIME(t *testing.T) {
